@@ -1,0 +1,30 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/profile_service
+    username: profile
+    password: 1234
+  data:
+    rest:
+      basePath: /data
+  application:
+    name: profile-service
+server:
+  port: ${PORT:8950}
+eureka:
+  instance:
+    hostname: localhost
+    metadataMap:
+      zone: zone1
+logging:
+  level:
+    org:
+      springframework: info
+    hibernate:
+      SQL: debug
+    com: debug
