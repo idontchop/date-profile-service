@@ -2,7 +2,10 @@ package com.idontchop.dateprofileservice.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -15,8 +18,11 @@ public class Selection {
 	public Selection () {}
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue ( strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	@ManyToOne
+	private TraitType traitType;
 	
 	@NotEmpty
 	@Length ( min = 1, max = 8 )
@@ -51,6 +57,22 @@ public class Selection {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public TraitType getTraitType() {
+		return traitType;
+	}
+
+	public void setTraitType(TraitType traitType) {
+		this.traitType = traitType;
 	}
 	
 	

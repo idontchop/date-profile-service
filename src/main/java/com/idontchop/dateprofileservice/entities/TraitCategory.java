@@ -35,7 +35,7 @@ public class TraitCategory  {
 	private Date created = new Date();	
 	private boolean active = true;
 	
-	@OneToMany ( fetch = FetchType.EAGER )
+	@OneToMany ( mappedBy = "category", cascade = CascadeType.ALL)
 	List<TraitType> traitTypes;
 
 	public TraitCategory() {

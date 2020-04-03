@@ -1,11 +1,13 @@
 package com.idontchop.dateprofileservice.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +26,13 @@ public class Profile {
 	@NotEmpty
 	private String name;		// username supplied by token
 	
+	@NotEmpty
+	private String title;		// "Name" of user
+	
 	private Date created = new Date();
 	
-	@OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Trait> traits;		// list of traits for this user, can be empty
+	@OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "profile", fetch = FetchType.EAGER)	
+	List<Trait> traits = new ArrayList<>();		// list of traits for this user, can be empty
 	
 	/**
 	 * This is the main profile, it goes on the browse pages.
@@ -88,6 +93,14 @@ public class Profile {
 
 	public void setLookingFor(String lookingFor) {
 		this.lookingFor = lookingFor;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

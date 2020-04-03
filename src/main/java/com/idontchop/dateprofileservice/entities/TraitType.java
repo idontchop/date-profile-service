@@ -1,6 +1,7 @@
 package com.idontchop.dateprofileservice.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class TraitType implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue ( strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotEmpty
@@ -37,10 +38,11 @@ public class TraitType implements Serializable {
 	@Length ( min = 1, max = 32 )
 	private String title;
 	
-	@OneToMany
-	List<Selection> selections;
+	@OneToMany ( cascade = CascadeType.ALL, mappedBy = "traitType" )
+	List<Selection> selections = new ArrayList<>();
 	
 	@ManyToOne
+	@JoinColumn( name = "category_id")
 	TraitCategory category;
 	
 	public enum SelectionType {
