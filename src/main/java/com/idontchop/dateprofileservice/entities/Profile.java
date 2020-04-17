@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
+import com.idontchop.dateprofileservice.dtos.UserProfileDto;
+
 @Entity
 public class Profile {
 	
@@ -103,6 +105,29 @@ public class Profile {
 		this.title = title;
 	}
 	
-	
+	public void fromdto ( UserProfileDto userProfileDto ) {
+		
+		this.setName( userProfileDto.getUsername() );  
+		this.setTitle( userProfileDto.getTitle() );		// display name
+		this.setAboutMe( userProfileDto.getAboutMe() );
+		this.setLookingFor( userProfileDto.getLookingFor() );
+		
+		List<Trait> newTraits = new ArrayList<>();
+		
+		userProfileDto.getTraits().stream()
+			.forEach( pair -> {
+				/* pain
+				 * Cycle through traits,
+				 * 	check newTraits, add selection 
+				 * 	 if new check this.traits for pair.trait
+				 * 	 if found, delete
+				 *   create new trait in newTraits
+				 * then
+				 *  after loop, add newTraits to this.traits
+				 * 
+				 */
+			
+			});
+	}
 
 }

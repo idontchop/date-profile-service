@@ -16,7 +16,7 @@ import com.idontchop.dateprofileservice.dtos.ReduceRequest;
 import com.idontchop.dateprofileservice.dtos.RestMessage;
 import com.idontchop.dateprofileservice.dtos.TraitSelectionPair;
 import com.idontchop.dateprofileservice.repositories.ProfileRepository;
-import com.idontchop.dateprofileservice.services.ProfileService;
+import com.idontchop.dateprofileservice.services.ReduceService;
 
 /**
  * /reduce/
@@ -36,7 +36,7 @@ public class MainController {
 	private String appName;
 	
 	@Autowired
-	ProfileService profileService;
+	ReduceService profileService;
 	
 	/**
 	 * Reduces a request based on the selections on traits.

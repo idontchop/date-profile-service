@@ -25,7 +25,7 @@ import com.idontchop.dateprofileservice.repositories.SelectionRepository;
 import com.idontchop.dateprofileservice.repositories.TraitCategoryRepository;
 import com.idontchop.dateprofileservice.repositories.TraitRepository;
 import com.idontchop.dateprofileservice.repositories.TraitTypeRepository;
-import com.idontchop.dateprofileservice.services.ProfileService;
+import com.idontchop.dateprofileservice.services.ReduceService;
 
 @SpringBootTest
 class DateProfileServiceApplicationTests {
@@ -46,7 +46,7 @@ class DateProfileServiceApplicationTests {
 	TraitRepository traitRepository;
 	
 	@Autowired
-	ProfileService profileService;
+	ReduceService profileService;
 
 	@Test
 	void contextLoads() {
