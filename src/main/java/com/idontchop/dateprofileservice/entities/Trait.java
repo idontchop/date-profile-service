@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -67,6 +68,10 @@ public class Trait {
 		this.selections = selections;
 	}
 	
-	
+	@Transient
+	public boolean isType ( String typeName ) {
+		return traitType.getName().equals(typeName);
+		
+	}
 
 }
