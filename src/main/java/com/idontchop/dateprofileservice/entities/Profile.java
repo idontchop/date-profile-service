@@ -117,17 +117,33 @@ public class Profile {
 		userProfileDto.getTraits().stream()
 			.forEach( pair -> {
 				/* pain
-				 * Cycle through traits,
-				 * 	check newTraits, add selection 
-				 * 	 if new check this.traits for pair.trait
-				 * 	 if found, delete
-				 *   create new trait in newTraits
-				 * then
-				 *  after loop, add newTraits to this.traits
+				 * Build newTraits
+				 * Cycle through this.traits checking if exists
+				 *  if exists, remove
+				 * allAll new traits
 				 * 
 				 */
-			
+				
+				
 			});
+	}
+	
+	/**
+	 * True if the profile has a trait of a certain trait type.
+	 * 
+	 * @param traitType
+	 * @return
+	 */
+	private boolean hasTrait ( TraitType traitType ) {
+		
+		boolean retVal = false;
+		for ( Trait trait : this.traits ) {
+			if ( trait.isType(traitType.getName()))
+				retVal = true;
+		}
+		
+		return retVal;
+		
 	}
 
 }

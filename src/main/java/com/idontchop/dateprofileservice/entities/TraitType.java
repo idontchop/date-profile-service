@@ -54,6 +54,9 @@ public class TraitType implements Serializable {
 	
 	private int maxChoices;		// how many checkboxes the user is allowed to pick, 0 is any
 
+	public boolean isRadio () {
+		return selectionType == SelectionType.RADIO;
+	}
 	public TraitType() {
 		super();
 	}   

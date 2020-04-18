@@ -26,6 +26,7 @@ import com.idontchop.dateprofileservice.repositories.TraitCategoryRepository;
 import com.idontchop.dateprofileservice.repositories.TraitRepository;
 import com.idontchop.dateprofileservice.repositories.TraitTypeRepository;
 import com.idontchop.dateprofileservice.services.ReduceService;
+import com.idontchop.dateprofileservice.services.TraitService;
 
 @SpringBootTest
 class DateProfileServiceApplicationTests {
@@ -47,15 +48,32 @@ class DateProfileServiceApplicationTests {
 	
 	@Autowired
 	ReduceService profileService;
+	
+	@Autowired
+	TraitService traitService;
 
 	@Test
 	void contextLoads() {
 	}
 	
-	
+	// non repo test
+	@Test
+	void testSelectionPairs () {
+		
+		// TODO: test duplicate traits and selections
+		
+		List<TraitSelectionPair> pairs = new ArrayList<>();
+		
+		//pairs.add( new TraitSelectionPair("smoking", "packs"));
+		//pairs.add( new TraitSelectionPair("smoking", "few"));
+		pairs.add( new TraitSelectionPair("drinking", "lots"));
+		
+		assertEquals(1, traitService.traitListFromSelectionPairs(pairs).size());
+		
+		assertEquals(1, traitService.traitListFromSelectionPairs(pairs).get(0).getSelections().size());
+	}
 
-	@Transactional
-	@Modifying
+
 	void testTrait() {
 		
 		Trait trait = new Trait();
@@ -73,7 +91,7 @@ class DateProfileServiceApplicationTests {
 		assertTrue ( trait2.getId() == trait.getId() );
 	}
 	
-	@Test
+	
 	void testReduce () {
 		
 		List<String> potentials = List.of("1","nada","holytotallynotinhere","2");
@@ -89,8 +107,7 @@ class DateProfileServiceApplicationTests {
 		
 	}
 	
-	@Test
-	@Transactional
+
 	void loadDb () {
 		
 		// Social cat

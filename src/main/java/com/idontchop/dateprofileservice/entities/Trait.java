@@ -36,6 +36,25 @@ public class Trait {
 	@ManyToMany ( fetch = FetchType.EAGER)
 	private List<Selection> selections = new ArrayList<>();
 
+	/**
+	 * Checks traittype.selectiontype to varify number of selections
+	 * matches possible options.
+	 * RADIO: 0-1
+	 * CHECKBOX: 0-maxchoices
+	 * 
+	 * @return
+	 */
+	public boolean isValidSelections () {
+		
+		if ( selections.size() == 0) 
+			return true;
+		if ( traitType.isRadio() && selections.size() == 1)
+			return true;
+		if ( selections.size() <= traitType.getMaxChoices() )
+			return true;
+		
+		return false;
+	}
 	public long getId() {
 		return id;
 	}

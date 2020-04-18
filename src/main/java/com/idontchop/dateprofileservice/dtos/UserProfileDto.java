@@ -2,6 +2,8 @@ package com.idontchop.dateprofileservice.dtos;
 
 import java.util.List;
 
+import com.idontchop.dateprofileservice.entities.Trait;
+
 public class UserProfileDto {
 	
 
@@ -12,6 +14,9 @@ public class UserProfileDto {
 	private String aboutMe;
 	private String lookingFor;
 	private List<TraitSelectionPair> traits;
+	
+	
+	private List<Trait> newTraits;		// built in profile service from traitselectionpair
 	
 	public String getUsername() {
 		return username;
@@ -42,6 +47,12 @@ public class UserProfileDto {
 	}
 	public void setTraits(List<TraitSelectionPair> traits) {
 		this.traits = traits;
+	}
+	public List<Trait> getNewTraits() {
+		return newTraits;
+	}
+	public void setNewTraits(List<Trait> newTraits) {
+		this.newTraits = newTraits;
 	}
 	
 	
