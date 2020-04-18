@@ -35,5 +35,9 @@ public class ProfileService {
 		
 		return profile;
 	}
+	
+	public void deleteProfile ( long id ) {
+		profileRepository.deleteById(id);
+	}
 
 }
