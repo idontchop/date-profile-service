@@ -36,8 +36,13 @@ public class ProfileService {
 		return profile;
 	}
 	
-	public void deleteProfile ( long id ) {
-		profileRepository.deleteById(id);
+	public void deleteProfile ( String name ) {
+		Profile profile = profileRepository.findByName(name).orElseThrow();
+		profileRepository.delete(profile);
+	}
+	
+	public Profile getProfile ( String name ) {
+		return profileRepository.findByName(name).orElseThrow();
 	}
 
 }
