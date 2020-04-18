@@ -92,5 +92,7 @@ public class Trait {
 		return traitType.getName().equals(typeName);
 		
 	}
+	
+	
 
 }

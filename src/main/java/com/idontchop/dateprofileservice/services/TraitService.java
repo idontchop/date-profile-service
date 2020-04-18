@@ -59,6 +59,8 @@ public class TraitService {
 			
 		}
 		
+		traitRepository.saveAll(traitList);
+		
 		return traitList;
 	}
 	

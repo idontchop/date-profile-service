@@ -30,6 +30,8 @@ public class ProfileService {
 		userProfileDto.setNewTraits(traitList);
 		
 		// now use fromDto
+		profile.fromdto(userProfileDto);
+		profileRepository.save(profile);
 		
 		return profile;
 	}

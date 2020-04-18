@@ -112,20 +112,7 @@ public class Profile {
 		this.setAboutMe( userProfileDto.getAboutMe() );
 		this.setLookingFor( userProfileDto.getLookingFor() );
 		
-		List<Trait> newTraits = new ArrayList<>();
-		
-		userProfileDto.getTraits().stream()
-			.forEach( pair -> {
-				/* pain
-				 * Build newTraits
-				 * Cycle through this.traits checking if exists
-				 *  if exists, remove
-				 * allAll new traits
-				 * 
-				 */
-				
-				
-			});
+		this.traits = userProfileDto.getNewTraits();
 	}
 	
 	/**
@@ -143,6 +130,10 @@ public class Profile {
 		}
 		
 		return retVal;
+		
+	}
+	
+	private void addTrait ( Trait trait ) {
 		
 	}
 
