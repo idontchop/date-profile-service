@@ -40,8 +40,8 @@ class DateProfileServiceApplicationTests {
 	@Autowired
 	SelectionRepository selectionRepository;
 	
-	@Autowired
-	TraitTypeRepository traitTypeRepository;
+	//@Autowired
+	//TraitTypeRepository traitTypeRepository;
 	
 	@Autowired
 	TraitRepository traitRepository;
