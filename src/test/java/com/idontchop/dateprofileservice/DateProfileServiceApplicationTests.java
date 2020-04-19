@@ -72,6 +72,20 @@ class DateProfileServiceApplicationTests {
 		
 		assertEquals(1, traitService.traitListFromSelectionPairs(pairs).get(0).getSelections().size());
 	}
+	
+	// non repo test
+	@Test
+	void testTraitFromPairs () {
+		
+		List<TraitSelectionPair> pairs = new ArrayList<>();
+		
+		pairs.add(new TraitSelectionPair("smoking", "packs"));
+		
+		Trait trait = traitService.traitFromPair(pairs);
+		
+		assertEquals(1, trait.getSelections().size());
+		assertEquals("smoking", trait.getTraitType().getName());
+	}
 
 
 	void testTrait() {

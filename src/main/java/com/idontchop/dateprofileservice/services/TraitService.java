@@ -3,6 +3,7 @@ package com.idontchop.dateprofileservice.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -95,6 +96,25 @@ public class TraitService {
 		}
 		
 		return traitList;
+	}
+	
+	public Trait traitFromPair ( List<TraitSelectionPair> pair ) {
+		
+		Trait trait = new Trait();
+		TraitType traitType = traitTypeRepository.findByName(pair.get(0).getTrait())
+				.orElseThrow();
+		trait.setTraitType(traitType);
+		
+		List<Selection> selections = pair.stream().map
+				( p -> {
+					return selectionRepository.findByNameAndTraitType(p.getSelection(), traitType)
+							.orElseThrow();
+				}).collect(Collectors.toList());
+		
+		trait.setSelections(selections);
+		
+		return trait;
+		
 	}
 
 }

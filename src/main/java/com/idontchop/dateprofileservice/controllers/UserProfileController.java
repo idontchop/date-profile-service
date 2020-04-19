@@ -21,7 +21,7 @@ import com.idontchop.dateprofileservice.services.ProfileService;
  *
  */
 @RestController
-public class ProfileController {
+public class UserProfileController {
 	
 	@Autowired
 	ProfileService profileService;
