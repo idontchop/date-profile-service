@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Trait {
 	
@@ -63,12 +65,14 @@ public class Trait {
 		this.id = id;
 	}
 
+	@JsonIgnore
 	public Profile getProfile() {
 		return profile;
 	}
 
-	public void setProfile(Profile profile) {
+	public Trait setProfile(Profile profile) {
 		this.profile = profile;
+		return this;
 	}
 
 	public TraitType getTraitType() {
@@ -91,6 +95,11 @@ public class Trait {
 	public boolean isType ( String typeName ) {
 		return traitType.getName().equals(typeName);
 		
+	}
+	
+	@Transient
+	public String getType () {
+		return traitType.getName();
 	}
 	
 	

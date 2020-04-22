@@ -43,7 +43,7 @@ public class ReduceService {
 				
 				Profile profile = profileOpt.get();
 				
-				// cycle through each selection of each trait for user
+				// cycle through each selection of each trait for user (could put another if to bypass traits)
 				for ( Trait t : profile.getTraits() ) {
 					for ( Selection s : t.getSelections() ) {
 						

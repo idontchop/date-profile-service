@@ -3,6 +3,7 @@ package com.idontchop.dateprofileservice.entities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ public class Profile {
 	private Date created = new Date();
 	
 	@OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "profile", fetch = FetchType.EAGER)	
-	List<Trait> traits = new ArrayList<>();		// list of traits for this user, can be empty
+	private List<Trait> traits = new ArrayList<>();		// list of traits for this user, can be empty
 	
 	/**
 	 * This is the main profile, it goes on the browse pages.
@@ -77,9 +78,6 @@ public class Profile {
 		return traits;
 	}
 
-	public void setTraits(List<Trait> traits) {
-		this.traits = traits;
-	}
 
 	public String getAboutMe() {
 		return aboutMe;
@@ -112,7 +110,8 @@ public class Profile {
 		this.setAboutMe( userProfileDto.getAboutMe() );
 		this.setLookingFor( userProfileDto.getLookingFor() );
 		
-		this.traits = userProfileDto.getNewTraits();
+		// set reference in trait to this profile
+		userProfileDto.getNewTraits().stream().forEach( this::addTrait );
 	}
 	
 	/**
@@ -121,7 +120,7 @@ public class Profile {
 	 * @param traitType
 	 * @return
 	 */
-	private boolean hasTrait ( TraitType traitType ) {
+	public boolean hasTrait ( TraitType traitType ) {
 		
 		boolean retVal = false;
 		for ( Trait trait : this.traits ) {
@@ -133,7 +132,17 @@ public class Profile {
 		
 	}
 	
-	private void addTrait ( Trait trait ) {
+	public void addTrait ( Trait trait ) {
+		
+		// filter traits for the traittype
+		List<Trait> old = this.traits.stream()
+				.filter( t -> t.isType(trait.getType()))
+				.collect(Collectors.toList()); // foreach(this.traits:remove) why it doesn't work?
+		this.traits.removeAll(old);
+		
+		// reference this profile in trait
+		trait.setProfile(this);
+		this.traits.add(trait);
 		
 	}
 

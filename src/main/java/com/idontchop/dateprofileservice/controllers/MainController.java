@@ -36,7 +36,7 @@ public class MainController {
 	private String appName;
 	
 	@Autowired
-	ReduceService profileService;
+	ReduceService reduceService;
 	
 	/**
 	 * Reduces a request based on the selections on traits.
@@ -50,7 +50,7 @@ public class MainController {
 	 */
 	@GetMapping(value = "/reduce")
 	public List<String> reduce(@RequestBody @Valid ReduceRequest reduceRequest) {
-		return profileService.reduceByTraitSelections(reduceRequest.getPotentials(),
+		return reduceService.reduceByTraitSelections(reduceRequest.getPotentials(),
 				reduceRequest.getSelections() );
 	}
 	

@@ -60,7 +60,7 @@ public class TraitService {
 			
 		}
 		
-		traitRepository.saveAll(traitList);
+		//traitRepository.saveAll(traitList);
 		
 		return traitList;
 	}

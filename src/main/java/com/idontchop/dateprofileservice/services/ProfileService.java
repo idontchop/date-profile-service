@@ -2,6 +2,8 @@ package com.idontchop.dateprofileservice.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ public class ProfileService {
 	@Autowired
 	TraitService traitService;
 	
+	@Transactional
 	public Profile addProfile( UserProfileDto userProfileDto ) {
 		
 		// find or create new profile

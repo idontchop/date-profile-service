@@ -1,10 +1,13 @@
 package com.idontchop.dateprofileservice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.Modifying;
 
 import com.idontchop.dateprofileservice.dtos.TraitSelectionPair;
+import com.idontchop.dateprofileservice.dtos.UserProfileDto;
 import com.idontchop.dateprofileservice.entities.Profile;
 import com.idontchop.dateprofileservice.entities.Selection;
 import com.idontchop.dateprofileservice.entities.Trait;
@@ -25,6 +29,7 @@ import com.idontchop.dateprofileservice.repositories.SelectionRepository;
 import com.idontchop.dateprofileservice.repositories.TraitCategoryRepository;
 import com.idontchop.dateprofileservice.repositories.TraitRepository;
 import com.idontchop.dateprofileservice.repositories.TraitTypeRepository;
+import com.idontchop.dateprofileservice.services.ProfileService;
 import com.idontchop.dateprofileservice.services.ReduceService;
 import com.idontchop.dateprofileservice.services.TraitService;
 
@@ -40,20 +45,54 @@ class DateProfileServiceApplicationTests {
 	@Autowired
 	SelectionRepository selectionRepository;
 	
-	//@Autowired
-	//TraitTypeRepository traitTypeRepository;
+	@Autowired
+	TraitTypeRepository traitTypeRepository;
 	
 	@Autowired
 	TraitRepository traitRepository;
 	
 	@Autowired
-	ReduceService profileService;
+	ProfileService profileService;
+	
+	@Autowired
+	ReduceService reduceService;
 	
 	@Autowired
 	TraitService traitService;
 
 	@Test
 	void contextLoads() {
+	}
+	
+	@Test
+	void testAddProfile () {
+		
+		String username = "mhaeann";
+		String title = "Mhae Ann";
+		
+		UserProfileDto dto = new UserProfileDto();
+		dto.setAboutMe("about me");
+		dto.setUsername(username);
+		dto.setLookingFor("Looking for rich man");
+		dto.setTitle(title);
+		dto.setTraits(
+				List.of( new TraitSelectionPair("drinking", "lots"),
+						new TraitSelectionPair("smoking", "few"),
+						new TraitSelectionPair("smoking", "packs"),
+						new TraitSelectionPair("drinking", "never")) );
+		
+		Profile profile = profileService.addProfile(dto);
+		
+		int size = profile.getTraits().size();
+		List<Trait> newTraits = profile.getTraits().stream().filter( t -> !t.isType("smoking")).collect(Collectors.toList());
+		
+		assertNotEquals(size, newTraits.size());
+		
+		
+		assertTrue(profile.getId() > 1);
+		assertTrue(profile.getName().equals(username));
+		assertEquals(title,profile.getTitle());
+		assertEquals(2, profile.getTraits().size());
 	}
 	
 	// non repo test
@@ -67,8 +106,10 @@ class DateProfileServiceApplicationTests {
 		//pairs.add( new TraitSelectionPair("smoking", "packs"));
 		//pairs.add( new TraitSelectionPair("smoking", "few"));
 		pairs.add( new TraitSelectionPair("drinking", "lots"));
+		pairs.add( new TraitSelectionPair("smoking", "few"));
+		pairs.add( new TraitSelectionPair("drinking", "unknown"));
 		
-		assertEquals(1, traitService.traitListFromSelectionPairs(pairs).size());
+		assertEquals(2, traitService.traitListFromSelectionPairs(pairs).size());
 		
 		assertEquals(1, traitService.traitListFromSelectionPairs(pairs).get(0).getSelections().size());
 	}
@@ -114,7 +155,7 @@ class DateProfileServiceApplicationTests {
 		List<TraitSelectionPair> tpList = new ArrayList<>();
 		tpList.add(tp);
 		
-		List<String> result = profileService.reduceByTraitSelections(potentials, tpList);
+		List<String> result = reduceService.reduceByTraitSelections(potentials, tpList);
 		
 		assertEquals(2, result.size());
 		assertEquals("1", result.get(0));

@@ -9,6 +9,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entity implementation class for Entity: TraitCategory
  *
@@ -78,6 +80,8 @@ public class TraitCategory  {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	
+	@JsonIgnore
 	public List<TraitType> getTraitTypes() {
 		return traitTypes;
 	}
