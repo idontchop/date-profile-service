@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -163,7 +165,8 @@ class DateProfileServiceApplicationTests {
 	}
 	
 
-	void loadDb () {
+
+	void  loadDb () {
 		
 		// Social cat
 		TraitCategory cat1 = traitCategoryRepository.findByName("Social").orElseGet( () -> {
@@ -179,17 +182,17 @@ class DateProfileServiceApplicationTests {
 		TraitType smokingType = traitTypeRepository.findByName("drinking").orElseGet( () -> {
 			TraitType st = new TraitType();
 			st.setCategory(cat1);
-			st.setName("smoking");
-			st.setTitle("Do you smoke?");
+			st.setName("drinking");
+			st.setTitle("Do you drink?");
 			st.setSelectionType(SelectionType.RADIO);
 			
 			traitTypeRepository.save(st);
 			
 			// selections
 			Selection a = new Selection();
-				a.setName("packs");
-				a.setTitle("4 packs");
-				a.setDescription("Smoking 4 packs per day");
+				a.setName("lots");
+				a.setTitle("Drink everyday");
+				a.setDescription("drunk every day");
 				a.setTraitType(st);
 			Selection b = new Selection();
 				b.setName("few");
@@ -199,7 +202,7 @@ class DateProfileServiceApplicationTests {
 			Selection c = new Selection();
 				c.setName("none");
 				c.setTitle("None");
-				c.setDescription("Never Smoking");
+				c.setDescription("Never Drinking");
 				c.setTraitType(st);
 			
 			
