@@ -47,5 +47,9 @@ public class ProfileService {
 	public Profile getProfile ( String name ) {
 		return profileRepository.findByName(name).orElseThrow();
 	}
+	
+	public List<Profile> getProfiles ( List<String> names ) {
+		return profileRepository.findAllByNameIn(names);
+	}
 
 }
