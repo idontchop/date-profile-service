@@ -33,7 +33,7 @@ public class UserProfileController {
 	@Autowired
 	ProfileService profileService;
 	
-	@GetMapping ("/api/profile/{name}")
+	@GetMapping ("/api/profile/{names}")
 	public List<Profile> getProfile (@PathVariable List<String> names) {
 		
 		return profileService.getProfiles(names);
