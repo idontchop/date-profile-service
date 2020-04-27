@@ -1,7 +1,9 @@
 package com.idontchop.dateprofileservice.dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.idontchop.dateprofileservice.entities.Profile;
 import com.idontchop.dateprofileservice.entities.Trait;
 
 public class UserProfileDto {
@@ -55,6 +57,20 @@ public class UserProfileDto {
 		this.newTraits = newTraits;
 	}
 	
-	
+	public UserProfileDto from ( Profile profile ) {
+		username = profile.getName();
+		title = profile.getTitle();
+		aboutMe = profile.getAboutMe();
+		lookingFor = profile.getLookingFor();
+		traits = new ArrayList<>();
+		
+		profile.getTraits().forEach( trait -> {
+			trait.getSelections().forEach( selection -> {
+				traits.add( new TraitSelectionPair ( trait.getType(), selection.getName()));
+			});
+		});
+		
+		return this;
+	}
 
 }

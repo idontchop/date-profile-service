@@ -2,6 +2,7 @@ package com.idontchop.dateprofileservice.controllers;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +35,14 @@ public class UserProfileController {
 	ProfileService profileService;
 	
 	@GetMapping ("/api/profile/{names}")
-	public List<Profile> getProfile (@PathVariable List<String> names) {
+	public List<UserProfileDto> getProfile (@PathVariable List<String> names) {
 		
-		return profileService.getProfiles(names);
+		return profileService.getProfiles(names).stream().map ( profile -> {
+			return new UserProfileDto()
+					.from(profile);
+		})
+		.collect(Collectors.toList());
+		
 	}
 	
 	@PostMapping ("/api/profile")
