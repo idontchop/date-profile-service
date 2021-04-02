@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class UserProfileController {
 	ProfileService profileService;
 	
 	@GetMapping ("/api/profile/{names}")
+	@CrossOrigin
 	public List<UserProfileDto> getProfile (@PathVariable List<String> names) {
 		
 		return profileService.getProfiles(names).stream().map ( profile -> {
@@ -46,6 +48,7 @@ public class UserProfileController {
 	}
 	
 	@PostMapping ("/api/profile")
+	@CrossOrigin
 	public Profile postProfile (@RequestBody UserProfileDto userProfileDto ) {
 		return profileService.addProfile(userProfileDto);
 	}
