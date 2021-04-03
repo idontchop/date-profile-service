@@ -1,5 +1,6 @@
 package com.idontchop.dateprofileservice.controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -35,6 +36,18 @@ public class UserProfileController {
 	@Autowired
 	ProfileService profileService;
 	
+	/**
+	 * Returns a list of profiles. This is called by the frontend when a list of posts
+	 * has been downloaded and the profile details should be filled in.
+	 * 
+	 * Any proper JWT can pull any number of profiles with this endpoint.
+	 * 
+	 * This may need to go through a reducer for blocks later. Though a bad actor could
+	 * see the profile of someone, he wouldn't be able to contact or see posts still.
+	 * 
+	 * @param names
+	 * @return
+	 */
 	@GetMapping ("/api/profile/{names}")
 	@CrossOrigin
 	public List<UserProfileDto> getProfile (@PathVariable List<String> names) {
@@ -45,6 +58,18 @@ public class UserProfileController {
 		})
 		.collect(Collectors.toList());
 		
+	}
+	
+	/**
+	 * Returns the raw profile for the authenticated user.
+	 * 
+	 * @param principal
+	 * @return
+	 */
+	@GetMapping("/api/myProfile")
+	@CrossOrigin
+	public Profile getMyProfile (Principal principal) {
+		return profileService.getProfile(principal.getName());
 	}
 	
 	@PostMapping ("/api/profile")

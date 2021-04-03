@@ -1,7 +1,9 @@
 package com.idontchop.dateprofileservice.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.mapping.Set;
 
 import com.idontchop.dateprofileservice.dtos.UserProfileDto;
 
@@ -32,10 +36,15 @@ public class Profile {
 	@NotEmpty
 	private String title;		// "Name" of user
 	
+	private LocalDate birthday;
+	
 	private Date created = new Date();
 	
 	@OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "profile", fetch = FetchType.EAGER)	
 	private List<Trait> traits = new ArrayList<>();		// list of traits for this user, can be empty
+	
+	@OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "profile")
+	private List<PostLink> postLinks = new ArrayList<>();
 	
 	/**
 	 * This is the main profile, it goes on the browse pages.
@@ -103,6 +112,26 @@ public class Profile {
 		this.title = title;
 	}
 	
+	
+	
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
+	
+	
+
+	public List<PostLink> getPostLinks() {
+		return postLinks;
+	}
+
+	public void setPostLinks(List<PostLink> postLinks) {
+		this.postLinks = postLinks;
+	}
+
 	public void fromdto ( UserProfileDto userProfileDto ) {
 		
 		this.setName( userProfileDto.getUsername() );  

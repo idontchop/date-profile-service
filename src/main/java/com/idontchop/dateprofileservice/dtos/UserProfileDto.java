@@ -1,8 +1,11 @@
 package com.idontchop.dateprofileservice.dtos;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.idontchop.dateprofileservice.entities.PostLink;
 import com.idontchop.dateprofileservice.entities.Profile;
 import com.idontchop.dateprofileservice.entities.Trait;
 
@@ -15,7 +18,9 @@ public class UserProfileDto {
 	private String title;			
 	private String aboutMe;
 	private String lookingFor;
+	private int age;
 	private List<TraitSelectionPair> traits;
+	private List<PostLink> postLinks;
 	
 	
 	private List<Trait> newTraits;		// built in profile service from traitselectionpair
@@ -55,14 +60,38 @@ public class UserProfileDto {
 	}
 	public void setNewTraits(List<Trait> newTraits) {
 		this.newTraits = newTraits;
+	}	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
+	public List<PostLink> getPostLinks() {
+		return postLinks;
+	}
+	public void setPostLinks(List<PostLink> postLinks) {
+		this.postLinks = postLinks;
+	}
 	public UserProfileDto from ( Profile profile ) {
 		username = profile.getName();
 		title = profile.getTitle();
 		aboutMe = profile.getAboutMe();
 		lookingFor = profile.getLookingFor();
 		traits = new ArrayList<>();
+		postLinks = profile.getPostLinks();
+		
+		// calculate age based on 1st of month
+		LocalDate startDate;
+		if ( profile.getBirthday() == null) {
+			// development temporary
+			startDate = LocalDate.of(1997, 7, 30);
+		} else {
+			startDate = profile.getBirthday().withDayOfMonth(1);
+		}
+		LocalDate endDate = LocalDate.now().withDayOfMonth(1);
+		age = Period.between(startDate, endDate).getYears();
 		
 		profile.getTraits().forEach( trait -> {
 			trait.getSelections().forEach( selection -> {
