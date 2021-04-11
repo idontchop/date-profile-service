@@ -21,6 +21,7 @@ public class UserProfileDto {
 	private int age;
 	private List<TraitSelectionPair> traits;
 	private List<PostLink> postLinks;
+	private String profileImageId;
 	
 	
 	private List<Trait> newTraits;		// built in profile service from traitselectionpair
@@ -81,6 +82,7 @@ public class UserProfileDto {
 		lookingFor = profile.getLookingFor();
 		traits = new ArrayList<>();
 		postLinks = profile.getPostLinks();
+		setProfileImageId(profile.getProfileImageId());
 		
 		// calculate age based on 1st of month
 		LocalDate startDate;
@@ -100,6 +102,12 @@ public class UserProfileDto {
 		});
 		
 		return this;
+	}
+	public String getProfileImageId() {
+		return profileImageId;
+	}
+	public void setProfileImageId(String profileImageId) {
+		this.profileImageId = profileImageId;
 	}
 
 }

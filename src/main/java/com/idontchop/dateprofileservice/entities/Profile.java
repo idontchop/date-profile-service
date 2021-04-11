@@ -40,6 +40,8 @@ public class Profile {
 	
 	private Date created = new Date();
 	
+	private String profileImageId;
+	
 	@OneToMany (cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "profile", fetch = FetchType.EAGER)	
 	private List<Trait> traits = new ArrayList<>();		// list of traits for this user, can be empty
 	
@@ -173,6 +175,14 @@ public class Profile {
 		trait.setProfile(this);
 		this.traits.add(trait);
 		
+	}
+
+	public String getProfileImageId() {
+		return profileImageId;
+	}
+
+	public void setProfileImageId(String profileImageId) {
+		this.profileImageId = profileImageId;
 	}
 
 }

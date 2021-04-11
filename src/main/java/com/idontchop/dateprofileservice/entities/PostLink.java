@@ -1,5 +1,7 @@
 package com.idontchop.dateprofileservice.entities;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,6 +33,8 @@ public class PostLink {
 	@ManyToOne
 	@JoinColumn (name = "profile_id")
 	private Profile profile;
+	
+	private LocalDateTime created = LocalDateTime.now();
 
 	public long getId() {
 		return id;
@@ -63,6 +67,14 @@ public class PostLink {
 
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
 	}
 	
 	
