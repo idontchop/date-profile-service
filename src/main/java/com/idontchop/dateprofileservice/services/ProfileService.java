@@ -45,6 +45,7 @@ public class ProfileService {
 	}
 	
 	public Profile getProfile ( String name ) {
+		System.out.println(name);
 		return profileRepository.findByName(name).orElseThrow();
 	}
 	
